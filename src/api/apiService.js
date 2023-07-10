@@ -1,7 +1,17 @@
-export const fetchCityData = async () => {
+export const fetchCityData = async (region) => {
     try {
-      const response = await fetch('https://public.opendatasoft.com/api/records/1.0/search/?dataset=geonames-all-cities-with-a-population-1000&q=&rows=1000');
-      if (!response.ok) {
+
+      // Correct the region according to the API
+      if (region === "Americas") {
+        region = "America"
+      } else if (region === "Oceania") {
+        region = "Australia"
+      }
+
+      const response = await fetch(
+        `https://public.opendatasoft.com/api/records/1.0/search/?dataset=geonames-all-cities-with-a-population-1000&q=&rows=1000&refine.timezone=${encodeURIComponent(region)}`
+        );      
+        if (!response.ok) {
         throw new Error('API request failed');
       }
       const data = await response.json();
@@ -34,6 +44,7 @@ export const fetchCityData = async () => {
     return shuffledArray;
   };
   
+  // Get 3 random countries
   const generateRandomCountryNames = (cityDataArray, selectedCityCountry, count) => {
     const randomCountryNames = new Set();
     while (randomCountryNames.size < count) {

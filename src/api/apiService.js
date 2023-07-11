@@ -55,5 +55,5 @@ export const fetchCityData = async (region) => {
       }
     }
     randomCountryNames.add(selectedCityCountry); // Add the selected city's country name
-    return Array.from(randomCountryNames);
+    return shuffleArray(Array.from(randomCountryNames)); // Shuffle the array before returning
   };

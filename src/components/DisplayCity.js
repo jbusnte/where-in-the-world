@@ -4,8 +4,13 @@ function DisplayCity({ city  }) {
   return (
     <div>
       {city && (
-        <div>
-          <Card>
+        <div class= "center">
+          <Card
+            bg="light"
+            border='secondary'
+            style={{ width: '17rem '}}
+            className="mb-2"
+          >
             <Card.Body>
               <Card.Title>{city.name}</Card.Title>
               <Card.Text>

@@ -19,10 +19,17 @@ function RegionSelection({ region, handleStartGame }) {
   };
 
   return (
-    <Card className="text-center" style={{ width: '12rem' }}>
+    <Card             
+    bg="secondary"
+    border="light"
+    className="text-center my-3"
+    style={{ width: '12rem', height: '90%'}}>
       <Card.Img variant="top" src={getImageSrc()} />
       <Card.Body>
-        <Button variant="primary" size="lg" onClick={() => handleStartGame(region)}>
+        <Button 
+         variant="light"
+         onClick={() => handleStartGame(region)}
+         >
           {region}
         </Button>
       </Card.Body>

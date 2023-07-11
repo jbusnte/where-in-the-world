@@ -1,12 +1,31 @@
 .Game {
   text-align: center;
+  color: whitesmoke;
 }
 
-.App-header {
-  background-color: rgba(0, 0, 0, 0.985);
+.center {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  color: white;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 7px;
+}
+
+/* overlay for the final score alert */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.score-alert {
+  max-width: 400px;
+  text-align: center;
 }

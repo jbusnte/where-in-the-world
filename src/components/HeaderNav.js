@@ -10,7 +10,7 @@ function HeaderNav() {
           <Navbar.Brand>
             <img
               alt=""
-              src="./earth.png"
+              src={process.env.PUBLIC_URL + '/earth.png'}
               width="30"
               height="30"
               className="d-inline-block align-top"

@@ -15,7 +15,7 @@ function RegionSelection({ region, handleStartGame }) {
     };
 
     const imageName = imageMap[region];
-    return `/${imageName}`;
+    return process.env.PUBLIC_URL + '/' + imageName;
   };
 
   return (

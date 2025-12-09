@@ -11,7 +11,19 @@
   margin-bottom: 7px;
 }
 
-/* overlay for the final score alert */
+/* Error Alert */
+.error-alert {
+  max-width: 500px;
+}
+
+/* Scoreboard */
+.scoreboard {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+/* Overlay for the final score alert */
 .overlay {
   position: fixed;
   top: 0;

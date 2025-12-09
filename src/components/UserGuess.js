@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import { POINTS_PER_CORRECT_ANSWER, ROUND_TRANSITION_DELAY_MS } from '../constants/gameConstants';
 
 function UserGuess({ randomCountryNames, selectedCityCountry, handleRoundComplete, setScore }) {
   const [selectedGuessIndex, setSelectedGuessIndex] = useState(null);
@@ -18,12 +20,12 @@ function UserGuess({ randomCountryNames, selectedCityCountry, handleRoundComplet
     setIsGuessSubmitted(true);
 
     if (countryName === selectedCityCountry) {
-      setScore((prevScore) => prevScore + 10);
+      setScore((prevScore) => prevScore + POINTS_PER_CORRECT_ANSWER);
     }
 
     setTimeout(() => {
       handleRoundComplete();
-    }, 1000); // Delay the round completion for 1 second
+    }, ROUND_TRANSITION_DELAY_MS);
   };
 
   return (
@@ -52,5 +54,12 @@ function UserGuess({ randomCountryNames, selectedCityCountry, handleRoundComplet
     </ListGroup>
   );
 }
+
+UserGuess.propTypes = {
+  randomCountryNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedCityCountry: PropTypes.string.isRequired,
+  handleRoundComplete: PropTypes.func.isRequired,
+  setScore: PropTypes.func.isRequired,
+};
 
 export default UserGuess;

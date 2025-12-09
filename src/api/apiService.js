@@ -1,16 +1,13 @@
+import { REGION_MAP, NUMBER_OF_WRONG_CHOICES } from '../constants/gameConstants';
+
 export const fetchCityData = async (region) => {
     try {
-
       // Correct the region according to the API
-      if (region === "Americas") {
-        region = "America"
-      } else if (region === "Oceania") {
-        region = "Australia"
-      }
+      const mappedRegion = REGION_MAP[region] || region;
 
       const response = await fetch(
-        `https://public.opendatasoft.com/api/records/1.0/search/?dataset=geonames-all-cities-with-a-population-1000&q=&rows=1000&refine.timezone=${encodeURIComponent(region)}`
-        );      
+        `https://public.opendatasoft.com/api/records/1.0/search/?dataset=geonames-all-cities-with-a-population-1000&q=&rows=1000&refine.timezone=${encodeURIComponent(mappedRegion)}`
+      );      
         if (!response.ok) {
         throw new Error('API request failed');
       }
@@ -26,7 +23,7 @@ export const fetchCityData = async (region) => {
   
       return {
         cityData: selectedCityData,
-        randomCountryNames: generateRandomCountryNames(shuffledCityDataArray, selectedCityCountry, 3),
+        randomCountryNames: generateRandomCountryNames(shuffledCityDataArray, selectedCityCountry, NUMBER_OF_WRONG_CHOICES),
       };
     } catch (error) {
       console.error('API error:', error);
@@ -44,7 +41,7 @@ export const fetchCityData = async (region) => {
     return shuffledArray;
   };
   
-  // Get 3 random countries
+  // Get random countries (excluding the correct answer)
   const generateRandomCountryNames = (cityDataArray, selectedCityCountry, count) => {
     const randomCountryNames = new Set();
     while (randomCountryNames.size < count) {

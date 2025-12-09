@@ -1,6 +1,36 @@
 .Game {
   text-align: center;
   color: whitesmoke;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .center {
@@ -9,11 +39,13 @@
   align-items: center;
   margin-top: 2rem;
   margin-bottom: 7px;
+  animation: slideUp 0.4s ease-out;
 }
 
 /* Error Alert */
 .error-alert {
   max-width: 500px;
+  animation: slideUp 0.3s ease-out;
 }
 
 /* Scoreboard */
@@ -21,6 +53,56 @@
   display: flex;
   justify-content: space-around;
   margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  animation: slideUp 0.5s ease-out;
+}
+
+.scoreboard p {
+  margin: 0.5rem 1rem;
+  font-weight: bold;
+}
+
+/* Keyboard hint styling */
+.keyboard-hint {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+/* Answer list items with hover effect */
+.list-group-item {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.list-group-item:hover:not(.list-group-item-success):not(.list-group-item-danger) {
+  transform: translateX(5px);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.list-group-item.list-group-item-success {
+  animation: pulse 0.5s ease-in-out;
+}
+
+.list-group-item.list-group-item-danger {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+/* Region cards */
+.regions {
+  animation: fadeIn 0.5s ease-in;
 }
 
 /* Overlay for the final score alert */
@@ -35,9 +117,33 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.3s ease-in;
 }
 
 .score-alert {
   max-width: 400px;
   text-align: center;
+  animation: slideUp 0.4s ease-out;
+}
+
+/* Loading spinner container */
+.spinner-container {
+  margin-top: 3rem;
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .scoreboard {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .scoreboard p {
+    margin: 0.3rem 0;
+  }
+
+  .keyboard-hint {
+    font-size: 0.8em;
+  }
 }

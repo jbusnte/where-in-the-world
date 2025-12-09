@@ -7,8 +7,9 @@ import UserGuess from './components/UserGuess';
 import Scoreboard from './components/Scoreboard';
 import HeaderNav from './components/HeaderNav';
 import { TOTAL_ROUNDS, REGIONS } from './constants/gameConstants';
+import { getHighScore, updateHighScore } from './utils/localStorage';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -25,6 +26,12 @@ function Game() {
   const [score, setScore] = useState(0);
   const [showScoreAlert, setShowScoreAlert] = useState(false);
   const [error, setError] = useState(null);
+  const [highScore, setHighScore] = useState(0);
+  const [isNewHighScore, setIsNewHighScore] = useState(false);
+
+  useEffect(() => {
+    setHighScore(getHighScore());
+  }, []);
 
 
   
@@ -49,6 +56,11 @@ function Game() {
   function handleRoundComplete() {
     if (round === TOTAL_ROUNDS) {
       setRound(1);
+      const achievedNewHighScore = updateHighScore(score);
+      setIsNewHighScore(achievedNewHighScore);
+      if (achievedNewHighScore) {
+        setHighScore(score);
+      }
       setShowScoreAlert(true);
     } else {
       setRound((prevRound) => prevRound + 1);
@@ -78,7 +90,7 @@ function Game() {
             handleRoundComplete={handleRoundComplete}
             setScore={setScore}
           />
-          <Scoreboard round={round} score={score} />
+          <Scoreboard round={round} score={score} highScore={highScore} />
         </div>
       ) : (
         // Content to display when the game hasn't started
@@ -91,7 +103,10 @@ function Game() {
             </Alert>
           )}
           {isLoading ? (
-            <Spinner animation="grow" variant="info" />
+            <div className="spinner-container">
+              <Spinner animation="grow" variant="info" />
+              <p className="mt-3">Loading cities...</p>
+            </div>
           ) : (
             <div className="regions">
               <h2>Choose a Region</h2>
@@ -117,13 +132,16 @@ function Game() {
       {showScoreAlert && (
         <div className="overlay">
           <Alert
-            variant="success"
+            variant={isNewHighScore ? "warning" : "success"}
             dismissible
             onClose={handleScoreAlertDismiss}
             className="score-alert"
           >
-            <Alert.Heading>Game Over!</Alert.Heading>
-            <p>Your final score is: {score}</p>
+            <Alert.Heading>
+              {isNewHighScore ? "🎉 New High Score!" : "Game Over!"}
+            </Alert.Heading>
+            <p>Your final score: <strong>{score}</strong></p>
+            {!isNewHighScore && <p>High score: {highScore}</p>}
           </Alert>
         </div>
       )}

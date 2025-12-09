@@ -1,6 +1,6 @@
-//import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
 
 function RegionSelection({ region, handleStartGame }) {
   const getImageSrc = () => {
@@ -36,5 +36,10 @@ function RegionSelection({ region, handleStartGame }) {
     </Card>
   );
 }
+
+RegionSelection.propTypes = {
+  region: PropTypes.string.isRequired,
+  handleStartGame: PropTypes.func.isRequired,
+};
 
 export default RegionSelection;

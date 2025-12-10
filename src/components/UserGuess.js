@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -13,7 +13,7 @@ function UserGuess({ randomCountryNames, selectedCityCountry, handleRoundComplet
     setSelectedGuessIndex(null);
   }, [randomCountryNames]);
 
-  const guessClicked = (countryName, index) => {
+  const guessClicked = useCallback((countryName, index) => {
     if (isGuessSubmitted) return;
 
     setSelectedGuessIndex(index);
@@ -26,7 +26,27 @@ function UserGuess({ randomCountryNames, selectedCityCountry, handleRoundComplet
     setTimeout(() => {
       handleRoundComplete();
     }, ROUND_TRANSITION_DELAY_MS);
-  };
+  }, [isGuessSubmitted, selectedCityCountry, setScore, handleRoundComplete]);
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      const key = event.key;
+      const keyNumber = parseInt(key, 10);
+
+      // Check if key is 1-4 and corresponds to a valid answer
+      if (keyNumber >= 1 && keyNumber <= 4 && keyNumber <= randomCountryNames.length) {
+        const index = keyNumber - 1;
+        const countryName = randomCountryNames[index];
+        guessClicked(countryName, index);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [randomCountryNames, guessClicked]);
 
   return (
     <ListGroup>
@@ -47,7 +67,7 @@ function UserGuess({ randomCountryNames, selectedCityCountry, handleRoundComplet
             onClick={() => guessClicked(countryName, index)}
             className={listItemClasses}
           >
-            {countryName}
+            <span className="keyboard-hint">{index + 1}.</span> {countryName}
           </ListGroup.Item>
         );
       })}

@@ -1,26 +1,38 @@
-import { REGION_MAP, NUMBER_OF_WRONG_CHOICES } from '../constants/gameConstants';
+import { REGION_MAP, NUMBER_OF_WRONG_CHOICES, DEFAULT_DIFFICULTY } from '../constants/gameConstants';
 
-export const fetchCityData = async (region) => {
+export const fetchCityData = async (region, difficulty = DEFAULT_DIFFICULTY) => {
     try {
       // Correct the region according to the API
       const mappedRegion = REGION_MAP[region] || region;
 
       const response = await fetch(
         `https://public.opendatasoft.com/api/records/1.0/search/?dataset=geonames-all-cities-with-a-population-1000&q=&rows=1000&refine.timezone=${encodeURIComponent(mappedRegion)}`
-      );      
+      );
         if (!response.ok) {
         throw new Error('API request failed');
       }
       const data = await response.json();
       const cityDataArray = data.records.map(record => record.fields);
-  
-      // Shuffle the city records array
-      const shuffledCityDataArray = shuffleArray(cityDataArray);
-  
+
+      // Filter cities based on difficulty (population)
+      const filteredCities = cityDataArray.filter(city => {
+        const population = city.population;
+        const minPop = difficulty.minPopulation || 0;
+        const maxPop = difficulty.maxPopulation || Infinity;
+        return population >= minPop && population <= maxPop;
+      });
+
+      if (filteredCities.length === 0) {
+        throw new Error('No cities found matching the difficulty criteria');
+      }
+
+      // Shuffle the filtered city records array
+      const shuffledCityDataArray = shuffleArray(filteredCities);
+
       // Select the first city from the shuffled array
       const selectedCityData = shuffledCityDataArray[0];
       const selectedCityCountry = selectedCityData.cou_name_en;
-  
+
       return {
         cityData: selectedCityData,
         randomCountryNames: generateRandomCountryNames(shuffledCityDataArray, selectedCityCountry, NUMBER_OF_WRONG_CHOICES),

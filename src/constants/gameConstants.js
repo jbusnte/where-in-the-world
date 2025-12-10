@@ -13,3 +13,35 @@ export const REGION_MAP = {
 
 // Available regions
 export const REGIONS = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+
+// Difficulty levels based on city population
+export const DIFFICULTY_LEVELS = {
+  EASY: {
+    id: 'easy',
+    name: 'Easy',
+    description: 'Major cities (500K+ population)',
+    minPopulation: 500000,
+    color: 'success',
+    icon: '😊'
+  },
+  MEDIUM: {
+    id: 'medium',
+    name: 'Medium',
+    description: 'Mid-sized cities (100K-500K population)',
+    minPopulation: 100000,
+    maxPopulation: 500000,
+    color: 'warning',
+    icon: '🤔'
+  },
+  HARD: {
+    id: 'hard',
+    name: 'Hard',
+    description: 'Small cities (1K-100K population)',
+    minPopulation: 1000,
+    maxPopulation: 100000,
+    color: 'danger',
+    icon: '🔥'
+  }
+};
+
+export const DEFAULT_DIFFICULTY = DIFFICULTY_LEVELS.EASY;

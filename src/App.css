@@ -132,6 +132,42 @@
   animation: fadeIn 0.3s ease-in;
 }
 
+/* Difficulty selector */
+.difficulty-selector {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.difficulty-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2rem;
+  font-size: 0.9em;
+}
+
+.difficulty-card {
+  transition: all 0.3s ease;
+}
+
+.difficulty-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.difficulty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Current difficulty badge */
+.current-difficulty {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  font-weight: bold;
+  margin-left: 8px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
 /* Responsive improvements */
 @media (max-width: 768px) {
   .scoreboard {
@@ -145,5 +181,9 @@
 
   .keyboard-hint {
     font-size: 0.8em;
+  }
+
+  .difficulty-icon {
+    font-size: 2rem;
   }
 }

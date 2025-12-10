@@ -21,8 +21,7 @@ export const DIFFICULTY_LEVELS = {
     name: 'Easy',
     description: 'Major cities (500K+ population)',
     minPopulation: 500000,
-    color: 'success',
-    icon: '😊'
+    color: 'success'
   },
   MEDIUM: {
     id: 'medium',
@@ -30,8 +29,7 @@ export const DIFFICULTY_LEVELS = {
     description: 'Mid-sized cities (100K-500K population)',
     minPopulation: 100000,
     maxPopulation: 500000,
-    color: 'warning',
-    icon: '🤔'
+    color: 'warning'
   },
   HARD: {
     id: 'hard',
@@ -39,8 +37,7 @@ export const DIFFICULTY_LEVELS = {
     description: 'Small cities (1K-100K population)',
     minPopulation: 1000,
     maxPopulation: 100000,
-    color: 'danger',
-    icon: '🔥'
+    color: 'danger'
   }
 };
 

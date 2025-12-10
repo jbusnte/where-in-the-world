@@ -25,7 +25,6 @@ function DifficultySelector({ onSelectDifficulty, selectedDifficulty }) {
                 onClick={() => onSelectDifficulty(difficulty)}
               >
                 <Card.Body className="d-flex flex-column">
-                  <Card.Title className="difficulty-icon">{difficulty.icon}</Card.Title>
                   <Card.Title>{difficulty.name}</Card.Title>
                   <Card.Text className="flex-grow-1">
                     {difficulty.description}
@@ -57,8 +56,7 @@ DifficultySelector.propTypes = {
     description: PropTypes.string.isRequired,
     minPopulation: PropTypes.number,
     maxPopulation: PropTypes.number,
-    color: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired
   }),
 };
 
